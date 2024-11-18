@@ -19,13 +19,14 @@ const BookDetails = () => {
     async function getBookDetails(){
       try{
         const response = await fetch(`${URL}${id}.json`);
+        // console.log(response);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         if(data){
           const {description, title, covers, subject_places, subject_times, subjects} = data;
           const newBook = {
-            description: description ? description.value : "No description found",
+            description: typeof description === "object" ? description.value : description || "No description found",
             title: title,
             cover_img: covers ? `https://covers.openlibrary.org/b/id/${covers[0]}-L.jpg` : coverImg,
             subject_places: subject_places ? subject_places.join(", ") : "No subject places found",
